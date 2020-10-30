@@ -4,9 +4,12 @@ import compression from 'compression';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import config from './config';
+import mongoose from 'mongoose';
 
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr(config.key);
+
+import dataCtrl from './server/dataCtrl';
 
 var PORT = process.env.PORT || 3006;
 
@@ -20,6 +23,18 @@ app.get('/', (req, res) => {
   let data = "";
   res.set('Cache-Control', 'public, max-age=31557600');
   res.send("ok");
+});
+
+app.post('/addData', dataCtrl.create);
+app.get('/readData', dataCtrl.read);
+app.put('/updateData/:id', dataCtrl.update);
+app.delete('/deleteData/:id', dataCtrl.delete);
+
+var mongoUri = 'mongodb://'+cryptr.decrypt(config.dbuser)+':'+cryptr.decrypt(config.dbpass)+'@ds339648.mlab.com:39648/npm-data-storage';
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.on('error', console.error.bind(console, 'connection error'));
+mongoose.connection.once('open', function(){
+  console.log("Connected to mongoDB");
 });
 
 app.listen( PORT, () => {
