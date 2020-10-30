@@ -26,7 +26,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/addData', dataCtrl.create);
-app.get('/readData', dataCtrl.read);
+app.get('/readRawData', dataCtrl.readRaw);
+app.get('/readFormattedData', dataCtrl.readFormatted);
 app.put('/updateData/:id', dataCtrl.update);
 app.delete('/deleteData/:id', dataCtrl.delete);
 

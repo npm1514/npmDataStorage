@@ -10,8 +10,31 @@ export default {
       res.send(result);
     });
   },
-  read: function(req, res) {
-    Role
+  readFormatted: function(req, res) {
+    Data
+    .find(req.query)
+    .populate()
+    .exec(function (err, result) {
+      console.log(result);
+      let pageload = 0;
+      let click = 0;
+      let referrers = []
+      result.map(a => {
+        if(a.type == "pageload") pageload++;
+        if(a.type == "click") click++;
+        if(a.referrer) referrers.push(a.referrer);
+      })
+      let formattedData = {
+        total: result.length,
+        pageload: pageload,
+        click: click,
+        referrers: referrers
+      }
+      res.send(formattedData);
+    });
+  },
+  readRaw: function(req, res) {
+    Data
     .find(req.query)
     .populate()
     .exec(function (err, result) {
