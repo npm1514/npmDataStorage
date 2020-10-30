@@ -8,6 +8,7 @@ var dataSchema = new Schema({
   device: {},
   referrer: String,
   screen: {},
-  performance: {}
+  performance: {},
+  clickThing: {}
 });
 module.exports = mongoose.model('Data', dataSchema);
