@@ -54,5 +54,26 @@ export default {
       if (err) res.send(err);
       res.send(result);
     });
+  },
+  removeLocalhost: (req, res) => {
+    Data
+    .find(req.query)
+    .populate()
+    .exec(function (err, result) {
+      result.map((datum) => {
+        if(datum.url == "http://localhost:3003"){
+          Data
+          .findByIdAndRemove(datum._id, {}, (err, result) => {
+            console.log(datum._id + " removed");
+          });
+        }
+      })
+      Data
+      .find(req.query)
+      .populate()
+      .exec(function (err, result) {
+        res.send(result);
+      });
+    });
   }
 };

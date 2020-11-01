@@ -30,6 +30,7 @@ app.get('/readRawData', dataCtrl.readRaw);
 app.get('/readFormattedData', dataCtrl.readFormatted);
 app.put('/updateData/:id', dataCtrl.update);
 app.delete('/deleteData/:id', dataCtrl.delete);
+app.get('/removeLocalhost', dataCtrl.removeLocalhost);
 
 var mongoUri = 'mongodb://'+cryptr.decrypt(config.dbuser)+':'+cryptr.decrypt(config.dbpass)+'@ds339648.mlab.com:39648/npm-data-storage';
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
