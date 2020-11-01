@@ -9,6 +9,6 @@ var dataSchema = new Schema({
   referrer: String,
   screen: {},
   performance: {},
-  clickThing: {}
+  clickThing: String
 });
 module.exports = mongoose.model('Data', dataSchema);
