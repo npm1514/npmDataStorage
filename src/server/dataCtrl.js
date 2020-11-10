@@ -28,7 +28,7 @@ export default {
         total: result.length,
         pageload: pageload,
         click: click,
-        referrers: referrers
+        referrers: referrers.sort()
       }
       res.send(formattedData);
     });
