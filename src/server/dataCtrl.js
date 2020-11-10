@@ -18,17 +18,33 @@ export default {
       console.log(result);
       let pageload = 0;
       let click = 0;
-      let referrers = []
+      let referrerList = [];
+      let clickList = [];
       result.map(a => {
         if(a.type == "pageload") pageload++;
         if(a.type == "click") click++;
-        if(a.referrer) referrers.push(a.referrer);
+        if(a.referrer) {
+          if(a.referrer[a.referrer.length - 1] == "/") a.referrer = a.referrer.slice(0,a.referrer.length - 1)
+          referrerList.push(a.referrer);
+        }
+        if(a.clickThing) {
+          clickList.push(a.clickThing);
+        }
       })
+      let referrers = {};
+      for (let i = 0; i < referrerList.length; i++) {
+          referrers[referrerList[i]] = 1 + (referrers[referrerList[i]] || 0);
+      }
+      let clickers = {};
+      for (let i = 0; i < clickList.length; i++) {
+          clickers[clickList[i]] = 1 + (clickers[clickList[i]] || 0);
+      }
       let formattedData = {
         total: result.length,
         pageload: pageload,
         click: click,
-        referrers: referrers.sort()
+        referrers: referrers,
+        clickers: clickers
       }
       res.send(formattedData);
     });
