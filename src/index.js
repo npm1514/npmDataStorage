@@ -32,7 +32,7 @@ app.put('/updateData/:id', dataCtrl.update);
 app.delete('/deleteData/:id', dataCtrl.delete);
 app.get('/removeLocalhost', dataCtrl.removeLocalhost);
 
-var mongoUri = 'mongodb://'+cryptr.decrypt(config.dbuser)+':'+cryptr.decrypt(config.dbpass)+'@ds339648.mlab.com:39648/npm-data-storage';
+var mongoUri = 'mongodb+srv://'+cryptr.decrypt(config.dbuser)+':'+cryptr.decrypt(config.dbpass)+'@npm-data-storage.mbq4o.mongodb.net/npm-data-storage?retryWrites=true&w=majority';
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('error', console.error.bind(console, 'connection error'));
 mongoose.connection.once('open', function(){
