@@ -15,7 +15,6 @@ export default {
     .find(req.query)
     .populate()
     .exec(function (err, result) {
-      console.log(result);
       let pageload = 0;
       let click = 0;
       let referrerList = [];
